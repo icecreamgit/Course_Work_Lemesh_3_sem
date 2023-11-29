@@ -4,11 +4,11 @@ import numpy as np
 class CalculateY:
     def __ExponentialDestr(self, xMassive, n):
         nu = self.__MiddleX(xMassive, n)
-        newList = sorted([(1. / nu * np.exp(-xMassive[i] / nu)) for i in range(n)])
+        newList = sorted([(1. / nu * np.exp(-1. * xMassive[i] / nu)) for i in range(n)])
         return newList
     def __GenerateRandom(self, n):
-        newList = sorted([np.random.uniform() for i in range(n)])
-        newList = self.__ExponentialDestr(newList, n)
+        newList = [np.random.exponential() for i in range(n)]
+        # newList = self.__ExponentialDestr(newList, n)
         return newList
     def __MiddleX(self, xMassive, n):
         sum = 0
