@@ -1,3 +1,4 @@
+import BH.ThirdMethod
 import HE.GetY
 import HE.MethodOne
 import KL.SecondMethod
@@ -37,6 +38,20 @@ def KlarFunction(params, YObject, KLObject):
         print(i)
     write_In_File_Distr(saverKL, N, "Klar", n)
 
+def BHFunction(params, YObject, BHObject):
+    n = params["n"]
+    a = params["a"]
+    N = params["N"]
+    saverBH = []
+
+    for i in range(N):
+        Y = YObject.ComputingY(n)
+        BH = BHObject.MainBaringhauseHenze(Y, a, n)
+        saverBH.append(BH)
+        print(i)
+    write_In_File_Distr(saverBH, N, "Baringhause_Henze", n)
+
+
 def Main():
     n = 100
     a = 1.
@@ -46,10 +61,11 @@ def Main():
     YObject = HE.GetY.CalculateY()
     HEObject = HE.MethodOne.Henze()
     KLObject = KL.SecondMethod.Klar()
+    BHObject = BH.ThirdMethod.BaringhauseHenze()
 
     # HEMassive = HenzeFunction(params, YObject, HEObject)
-    KlarFunction(params, YObject, KLObject)
-
+    # KlarFunction(params, YObject, KLObject)
+    BHFunction(params, YObject, BHObject)
 
 
     l = 0
