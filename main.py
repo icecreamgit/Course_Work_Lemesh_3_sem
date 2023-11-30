@@ -1,5 +1,7 @@
 import HE.GetY
 import HE.MethodOne
+import KL.SecondMethod
+
 
 def write_In_File_Distr(Distr, N, name, n):
     with open(name + '_' + str(n) + '_' + str(N) + '.dat', 'w') as file:
@@ -15,7 +17,6 @@ def HenzeFunction(params, YObject, HEObject):
     N = params["N"]
     saverHE = []
 
-
     for i in range(N):
         Y = YObject.ComputingY(n)
         HE = HEObject.MainHenze(Y, a, n)
@@ -23,16 +24,32 @@ def HenzeFunction(params, YObject, HEObject):
         print(i)
     write_In_File_Distr(saverHE, N, "Henze", n)
 
+def KlarFunction(params, YObject, KLObject):
+    n = params["n"]
+    a = params["a"]
+    N = params["N"]
+    saverKL = []
+
+    for i in range(N):
+        Y = YObject.ComputingY(n)
+        KL = KLObject.MainKlar(Y, a, n)
+        saverKL.append(KL)
+        print(i)
+    write_In_File_Distr(saverKL, N, "Klar", n)
+
 def Main():
     n = 100
     a = 1.
     N = 16600
-    YObject = HE.GetY.CalculateY()
-    HEObject = HE.MethodOne.Henze()
     params = {"n": n, "a": a, "N": N}
 
-    HEMassive = HenzeFunction(params, YObject, HEObject)
-    
+    YObject = HE.GetY.CalculateY()
+    HEObject = HE.MethodOne.Henze()
+    KLObject = KL.SecondMethod.Klar()
+
+    # HEMassive = HenzeFunction(params, YObject, HEObject)
+    KlarFunction(params, YObject, KLObject)
+
 
 
     l = 0
