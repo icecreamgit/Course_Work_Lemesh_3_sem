@@ -57,12 +57,18 @@ def BHFunction(params, YObject, BHObject):
     write_In_File_Distr(saverBH, N, "Baringhause_Henze", n, typeHypothesis)
     saverBH.clear()
 
+def Crossroads(mode, params, YObject, HEObject, KLObject, BHObject):
+    if mode == 0:
+        HenzeFunction(params, YObject, HEObject)
+        KlarFunction(params, YObject, KLObject)
+        BHFunction(params, YObject, BHObject)
+
 
 def Main():
     n = 10
     a = 1.
     N = 16600
-    typeHypothesis = "H2"
+    typeHypothesis = "H3"
     params = {"n": n, "a": a, "N": N, "typeHypothesis": typeHypothesis}
 
     YObject = HE.GetY.CalculateY()
@@ -70,13 +76,9 @@ def Main():
     KLObject = KL.SecondMethod.Klar()
     BHObject = BH.ThirdMethod.BaringhauseHenze()
 
-    # HEMassive = HenzeFunction(params, YObject, HEObject)
-    # KlarFunction(params, YObject, KLObject)
-    # BHFunction(params, YObject, BHObject)
+    # mode == 0 - рассчитываем статистики. 1 - метод Вальда и Сэвиджа, 2 - поиск необходимого объёма выборки
+    Crossroads(0, params, YObject, HEObject, KLObject, BHObject)
 
-
-    l = 0
-
-
+    flag = 0
 
 Main()
