@@ -6,11 +6,18 @@ import KL.SecondMethod
 
 def write_In_File_Distr(Distr, N, name, n, Hi):
     with open("FILES\\"+ name + '_' + str(n) + '_' + str(N) + '_' + Hi + '.dat', 'w') as file:
-        file.write(name + '(создано не ISW) N=' + str(N) + '\t n = ' + str(n) +  ' ' + '\n')
+        file.write(name + '(создано не ISW) N=' + str(N) + '\t n = ' + str(n) + ' ' + Hi + ' ' + '\n')
         file.write(str('0 ' + ' ' + str(N) + '\n'))
         for i in range(N):
             file.write(str(Distr[i]) + '\n')
 
+def ReadFromFile():
+    massive = []
+    with open("ValdSav\\matrix.txt", 'r') as file:
+        for line in file:
+            elements = line.split()
+            massive.append([float(i) for i in elements])
+    return massive
 
 def HenzeFunction(params, YObject, HEObject):
     n = params["n"]
@@ -65,19 +72,19 @@ def Crossroads(mode, params, YObject, HEObject, KLObject, BHObject):
 
 
 def Main():
-    n = 10
+    n = 100
     a = 1.
     N = 16600
-    typeHypothesis = "H3"
+    typeHypothesis = "H0"
     params = {"n": n, "a": a, "N": N, "typeHypothesis": typeHypothesis}
 
     YObject = HE.GetY.CalculateY()
     HEObject = HE.MethodOne.Henze()
     KLObject = KL.SecondMethod.Klar()
     BHObject = BH.ThirdMethod.BaringhauseHenze()
-
+    ReadFromFile()
     # mode == 0 - рассчитываем статистики. 1 - метод Вальда и Сэвиджа, 2 - поиск необходимого объёма выборки
-    Crossroads(0, params, YObject, HEObject, KLObject, BHObject)
+    # Crossroads(0, params, YObject, HEObject, KLObject, BHObject)
 
     flag = 0
 
