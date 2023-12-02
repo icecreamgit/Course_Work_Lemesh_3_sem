@@ -2,7 +2,7 @@ import BH.ThirdMethod
 import HE.GetY
 import HE.MethodOne
 import KL.SecondMethod
-
+import ValdSav.ValdSevMethod as vs
 
 def write_In_File_Distr(Distr, N, name, n, Hi):
     with open("FILES\\"+ name + '_' + str(n) + '_' + str(N) + '_' + Hi + '.dat', 'w') as file:
@@ -85,6 +85,11 @@ def Main():
     ReadFromFile()
     # mode == 0 - рассчитываем статистики. 1 - метод Вальда и Сэвиджа, 2 - поиск необходимого объёма выборки
     # Crossroads(0, params, YObject, HEObject, KLObject, BHObject)
+
+    el = vs.ValdSavidge()
+    matrix = ReadFromFile()
+    el.MainValdSavidge(matrix)
+
 
     flag = 0
 
