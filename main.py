@@ -64,7 +64,7 @@ def BHFunction(params, YObject, BHObject):
     write_In_File_Distr(saverBH, N, "Baringhause_Henze", n, typeHypothesis)
     saverBH.clear()
 
-def Crossroads(mode, params, YObject, HEObject, KLObject, BHObject, ValdSavObject):
+def Crossroads(mode, params, YObject, HEObject, KLObject, BHObject, ValdSavObject, nparams):
     if mode == 0:
         HenzeFunction(params, YObject, HEObject)
         KlarFunction(params, YObject, KLObject)
@@ -72,14 +72,19 @@ def Crossroads(mode, params, YObject, HEObject, KLObject, BHObject, ValdSavObjec
     if mode == 1:
         matrix = ReadFromFile()
         result = ValdSavObject.MainValdSavidge(matrix)
-
+    if mode == 2:
+        n1 = nparams["n1"]
+        n2 = nparams["n2"]
+        reT1T2 = n2 / n1
+        return reT1T2
 
 def Main():
-    n = 100
+    n = 200
     a = 1.
     N = 16600
     typeHypothesis = "H0"
     params = {"n": n, "a": a, "N": N, "typeHypothesis": typeHypothesis}
+    nparams = {"n1": 200, "n2": 300}
 
     YObject = HE.GetY.CalculateY()
     HEObject = HE.MethodOne.Henze()
@@ -88,7 +93,7 @@ def Main():
     ValdSavObject = vs.ValdSavidge()
     ReadFromFile()
     # mode == 0 - рассчитываем статистики. 1 - метод Вальда и Сэвиджа, 2 - поиск необходимого объёма выборки
-    Crossroads(1, params, YObject, HEObject, KLObject, BHObject, ValdSavObject)
+    Crossroads(0, params, YObject, HEObject, KLObject, BHObject, ValdSavObject, nparams)
 
 
 
